@@ -1,5 +1,5 @@
-use rand::{thread_rng, Rng};
 use rand::distributions::Uniform;
+use rand::{thread_rng, Rng};
 
 #[derive(Copy, Clone)]
 pub enum Die {
@@ -10,26 +10,30 @@ pub enum Die {
     D10 = 10,
     D12 = 12,
     D20 = 20,
-    D100 = 100
+    D100 = 100,
 }
 
-pub struct Dice { 
+pub struct Dice {
     die: Die,
     number_of_rolls: u32,
-	modifier: i32,
+    modifier: i32,
 }
 
 pub struct RollResult {
     pub die: Die,
     pub number_of_rolls: u32,
-	pub modifier: i32,
+    pub modifier: i32,
     pub rolls: Vec<u32>,
     pub total: i32,
 }
 
 impl Dice {
     pub fn new(die: Die) -> Dice {
-        Dice { die, number_of_rolls: 1, modifier: 0 }
+        Dice {
+            die,
+            number_of_rolls: 1,
+            modifier: 0,
+        }
     }
 
     pub fn roll_n_times(&self, n: u32) -> Vec<u32> {
@@ -47,7 +51,7 @@ impl Dice {
         self
     }
 
-	pub fn modifier(&mut self, m: i32) -> &mut Dice {
+    pub fn modifier(&mut self, m: i32) -> &mut Dice {
         self.modifier = m;
         self
     }
@@ -145,7 +149,7 @@ mod tests {
     #[test]
     fn it_returns_a_roll_result_with_n() {
         let mut d4 = Dice::new(Die::D4);
-        
+
         // set n
         d4.number_of_rolls(6);
 
@@ -155,7 +159,7 @@ mod tests {
         assert_eq!(result.number_of_rolls, 6);
     }
 
-	#[test]
+    #[test]
     fn it_returns_a_roll_result_with_correct_total_vector() {
         let result = Dice::new(Die::D6).number_of_rolls(6).modifier(2).execute();
 
